@@ -15,7 +15,7 @@ public class rate_test {
 	@Test
 	public void RateTest(){
 		try {
-			assertEquals(RateBLL.getRate(745), 3.5, 0.01);
+			assertEquals(RateBLL.getRate(745), 4.00, 0.01);
 		} catch (RateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -34,7 +34,7 @@ public class rate_test {
 	// to test the getPayment
 	@Test
 	public void PaymentTest() {
-		assertEquals(RateBLL.getPayment(0.04, 360, 300000, 0.0, false), 1432.25, 0.01);
+		assertEquals(RateBLL.getPayment(0.04/12, 360, 300000, 0.0, false), 1432.25, 0.01);
 	}
 
 }
