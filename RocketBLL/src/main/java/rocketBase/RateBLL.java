@@ -5,13 +5,14 @@ import java.util.ArrayList;
 import org.apache.poi.ss.formula.functions.*;
 
 import exceptions.RateException;
+import rocketData.LoanRequest;
 import rocketDomain.RateDomainModel;
 
 public class RateBLL {
 
 	private static RateDAL _RateDAL = new RateDAL();
 	
-	static double getRate(int GivenCreditScore) throws RateException 
+	public static double getRate(int GivenCreditScore) throws RateException 
 	{
 		//DONE - RocketBLL RateBLL.getRate - make sure you throw any exception
 		
@@ -21,7 +22,7 @@ public class RateBLL {
 		//		hints:  you have to sort the rates...  you can do this by using
 		//			a comparator... or by using an OrderBy statement in the HQL
 		
-		//TODO - sort the rates
+		//DONE - sort the rates
 		
 		//DONE - RocketBLL RateBLL.getRate
 		//			obviously this should be changed to return the determined rate
@@ -47,12 +48,26 @@ public class RateBLL {
 	}
 	
 	
-	//TODO - RocketBLL RateBLL.getPayment 
+	// - RocketBLL RateBLL.getPayment 
 	//		how to use:
 	//		https://poi.apache.org/apidocs/org/apache/poi/ss/formula/functions/FinanceLib.html
 	
 	public static double getPayment(double r, double n, double p, double f, boolean t)
 	{		
-		return FinanceLib.pmt(r, n, p, f, t) * (-1.0);
+		return FinanceLib.pmt(r/12, n, p, f, t) * (-1.0);
 	}
+	
+	// add method if income check 
+		// pass in loan request which has income and pmt and expenses
+	// TODO unit test
+		public static boolean IncomeCheck(LoanRequest lq)
+		{
+			boolean ICheck = false;
+			if(((lq.getIncome()/12 * .28) > (lq.getdPayment())) && (((lq.getIncome()+lq.getExpenses())*.36) > lq.getdPayment()));
+			{
+				ICheck = true;
+			}
+			return ICheck ;		
+			
+		}
 }

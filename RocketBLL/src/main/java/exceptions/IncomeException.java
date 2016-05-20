@@ -3,25 +3,25 @@ package exceptions;
 import rocketData.LoanRequest;
 import rocketDomain.RateDomainModel;
 
-public class RateException extends Exception {
+public class IncomeException extends Exception {
 
 	//	DONE - RocketBLL RateException - RateDomainModel should be an attribute of RateException
 	//	* Add RateRomainModel as an attribute
 	//	* Create a constructor, passing in RateDomainModel
 	//	* Create a getter (no setter, set value only in Constructor)
 	
-	private RateDomainModel RateDomainModel = null;
 	private LoanRequest lq = null;
 
-	public RateException(RateDomainModel RateDomainModel) {
+	public IncomeException(LoanRequest lq) {
 		// TODO Auto-generated constructor stub
-		this.RateDomainModel = RateDomainModel;
+		this.lq = lq;
+	
+	}
+
+	public LoanRequest getLoanRequest() {
+		return lq;
 	}
 	
-
-	public RateDomainModel getRateDomainModel() {
-		return RateDomainModel;
-	}
 	
 	
 }
