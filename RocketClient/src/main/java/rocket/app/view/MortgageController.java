@@ -1,8 +1,16 @@
 package rocket.app.view;
 
+import java.awt.Button;
+import java.awt.TextField;
+
+import com.sun.xml.ws.org.objectweb.asm.Label;
+
 import eNums.eAction;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import rocket.app.MainApp;
 import rocketCode.Action;
 import rocketData.LoanRequest;
@@ -23,12 +31,50 @@ public class MortgageController {
 	//		Button   -  button to calculate the loan payment
 	//		Label    -  to show error messages (exception throw, payment exception)
 
+	@FXML
+	private TextField txtIncome;
+	
+	@FXML
+	private TextField txtExpenses;
+
+	@FXML
+	private TextField txtCreditScore;
+	
+	@FXML
+	private TextField txtHouseCost;
+
+	@FXML
+	private TextField txtDownPayment;
+
+	@FXML
+	private ComboBox<String> cmbTerm;
+
+	@FXML
+	private Label lblMortgagePayment;
+
+	@FXML
+	private Button btnCalcPayment;
+	
+	@FXML
+	private Button btnExit;
+	
+	ObservableList<String> termList = FXCollections.observableArrayList("15 Years", "30 Years") ;
+	
+	@FXML
+	private void initialize() {
+		cmbTerm.setValue(termList.get(0));
+		cmbTerm.setItems(termList);
+		
+		
+	}
+
+	
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 	}
 	
 	
-	//	TODO - RocketClient.RocketMainController
+	//	DONE - RocketClient.RocketMainController
 	//			Call this when btnPayment is pressed, calculate the payment
 	@FXML
 	public void btnCalculatePayment(ActionEvent event)
@@ -46,6 +92,11 @@ public class MortgageController {
 		
 		//	send lq as a message to RocketHub		
 		mainApp.messageSend(lq);
+	}
+	@FXML
+	public void btnExit(ActionEvent event)
+	{
+		//  TODO
 	}
 	
 	public void HandleLoanRequestDetails(LoanRequest lRequest)
