@@ -63,7 +63,7 @@ public class RateBLL {
 		public static boolean IncomeCheck(LoanRequest lq)
 		{
 			boolean ICheck = false;
-			if(((lq.getIncome()/12 * .28) > (lq.getdPayment())) && (((lq.getIncome()+lq.getExpenses())*.36) > lq.getdPayment()));
+			if(((lq.getIncome()/12 * .28) > (lq.getdPayment())) && (((lq.getIncome()/12+lq.getExpenses())*.36) > lq.getdPayment()));
 			{
 				ICheck = true;
 			}

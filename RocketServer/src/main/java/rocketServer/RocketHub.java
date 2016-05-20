@@ -37,7 +37,6 @@ public class RocketHub extends Hub {
 			//	you should update lq, and then send lq back to the caller(s)
 			
 			
-			double rateFromRequest;
 			try {
 				lq.setdRate(_RateBLL.getRate(lq.getiCreditScore()));
 			} catch (RateException e) {
