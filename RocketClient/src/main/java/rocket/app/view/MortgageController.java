@@ -74,7 +74,6 @@ public class MortgageController {
 		cmbTerm.setValue(termList.get(0));
 		cmbTerm.setItems(termList);
 		
-		
 	}
 
 	
@@ -125,7 +124,7 @@ public class MortgageController {
 		
 		RateBLL _RateBLL = new RateBLL();
 		
-		if (_RateBLL.IncomeCheck(lRequest) != false) {
+		if (_RateBLL.IncomeCheck(lRequest) == true) {
 			 lblMortgagePayment.setText(cf.format(lRequest.getdPayment()));
 		} else {
 			lblMortgagePayment.setText("House Cost too high");
