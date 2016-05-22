@@ -1,7 +1,6 @@
 package rocket.app.view;
 
-import java.awt.Button;
-import java.awt.TextField;
+
 import java.text.NumberFormat;
 
 import javax.swing.JLabel;
@@ -15,7 +14,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import rocket.app.MainApp;
 import rocketBase.RateBLL;
 import rocketBase.RateDAL;
@@ -55,8 +56,11 @@ public class MortgageController {
 	@FXML
 	private TextField txtDownPayment;
 
+	// list for combo box
+	ObservableList<String> termList = FXCollections.observableArrayList("15 Years", "30 Years") ;
+	
 	@FXML
-	private ComboBox<String> cmbTerm;
+	private ComboBox cmbTerm;
 
 	@FXML
 	private JLabel lblMortgagePayment;
@@ -67,12 +71,13 @@ public class MortgageController {
 	@FXML
 	private Button btnExit;
 	
-	ObservableList<String> termList = FXCollections.observableArrayList("15 Years", "30 Years") ;
+	
+	
 	
 	@FXML
 	private void initialize() {
-		cmbTerm.setValue(termList.get(0));
 		cmbTerm.setItems(termList);
+		cmbTerm.setValue(termList.get(1));
 		
 	}
 
