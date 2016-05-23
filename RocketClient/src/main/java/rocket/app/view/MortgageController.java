@@ -40,6 +40,7 @@ public class MortgageController {
 	//		Label    -  to show error messages (exception throw, payment exception)
 	
 	private static NumberFormat cf = NumberFormat.getCurrencyInstance();
+	private static NumberFormat pf = NumberFormat.getPercentInstance();
 	//TODO percent format for rate, check down payment logic
 
 	@FXML
@@ -53,7 +54,7 @@ public class MortgageController {
 	
 	@FXML
 	private TextField txtHouseCost;
-
+	
 	@FXML
 	private TextField txtDownPayment;
 
@@ -80,9 +81,10 @@ public class MortgageController {
 	
 	@FXML
 	private void initialize() {
+		// adds items to combo box
 		cmbTerm.setItems(termList);
+		// selects 30 years because its most common
 		cmbTerm.setValue(termList.get(1));
-		
 	}
 
 	
@@ -104,6 +106,9 @@ public class MortgageController {
 		//	TODO - RocketClient.RocketMainController
 		//			set the loan request details...  rate, term, amount, credit score, downpayment
 		//			I've created you an instance of lq...  execute the setters in lq
+		
+		
+		
 		
 		lq.setdAmount(Double.parseDouble(txtHouseCost.getText()) - Double.parseDouble(txtDownPayment.getText()));
 		lq.setIncome(Double.parseDouble(txtIncome.getText()));
@@ -131,7 +136,7 @@ public class MortgageController {
 		//			Display dPayment on the form, rounded to two decimal places
 		
 		RateBLL _RateBLL = new RateBLL();
-		txtRate.setText(Double.toString(lRequest.getdRate()));
+		txtRate.setText(pf.format(lRequest.getdRate()/100));
 		
 		if (_RateBLL.IncomeCheck(lRequest) == true) {
 			
