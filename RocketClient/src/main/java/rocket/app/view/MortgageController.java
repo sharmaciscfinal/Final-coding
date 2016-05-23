@@ -10,6 +10,7 @@ import org.springframework.format.number.CurrencyFormatter;
 import com.sun.xml.ws.org.objectweb.asm.Label;
 
 import eNums.eAction;
+import exceptions.RateException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -76,6 +77,9 @@ public class MortgageController {
 	@FXML
 	private Button btnExit;
 	
+	@FXML
+	private Button btnClear;
+	
 	
 	
 	
@@ -85,6 +89,7 @@ public class MortgageController {
 		cmbTerm.setItems(termList);
 		// selects 30 years because its most common
 		cmbTerm.setValue(termList.get(1));
+		
 	}
 
 	
@@ -107,7 +112,25 @@ public class MortgageController {
 		//			set the loan request details...  rate, term, amount, credit score, downpayment
 		//			I've created you an instance of lq...  execute the setters in lq
 		
-		
+		/**sets empty text fields to zero--> still does not fix blank issue
+		 * 
+		if(txtHouseCost.getText() == ""){
+			txtHouseCost.setText("0");
+		}
+		if(txtDownPayment.getText() == ""){
+			txtDownPayment.setText("0");
+		}
+		if(txtIncome.getText() == ""){
+			txtIncome.setText("0");
+		}
+		if(txtExpenses.getText() == ""){
+			txtExpenses.setText("0");
+		}
+		if(txtCreditScore.getText() == ""){
+			txtCreditScore.setText("0");
+		}
+		 * 
+		 */
 		
 		
 		lq.setdAmount(Double.parseDouble(txtHouseCost.getText()) - Double.parseDouble(txtDownPayment.getText()));
@@ -138,12 +161,24 @@ public class MortgageController {
 		RateBLL _RateBLL = new RateBLL();
 		txtRate.setText(pf.format(lRequest.getdRate()/100));
 		
-		if (_RateBLL.IncomeCheck(lRequest) == true) {
+		try {
+			lRequest.setdRate(_RateBLL.getRate(lRequest.getiCreditScore()));
+		} catch (RateException e) {
+			// TODO Auto-generated catch block
+			lRequest.setdRate(-1.0);
+		}
+		
+		if (lRequest.getdRate() == -1.0) {
+			txtRate.setText("Sorry your credit score does not qualify.");
+			txtMortgagePayment.setText("Sorry your credit score does not qualify.");	
+		
+		} else if(_RateBLL.IncomeCheck(lRequest) == false){
 			
-			txtMortgagePayment.setText(cf.format(lRequest.getdPayment()));
+			txtMortgagePayment.setText("House cost too high.");
+			txtRate.setText("House cost too high.");
 			
 		} else {
-			txtMortgagePayment.setText("House Cost too high");
+			txtMortgagePayment.setText(cf.format(lRequest.getdPayment()));
 		}
 		
 	}
@@ -152,6 +187,19 @@ public class MortgageController {
 	public void btnExit(ActionEvent event)
 	{
 		System.exit(0);
+		
+	}
+	
+	@FXML
+	public void btnClear(ActionEvent event)
+	{
+		txtIncome.setText("");
+		txtExpenses.setText("");
+		txtCreditScore.setText("");
+		txtHouseCost.setText("");
+		txtDownPayment.setText("");
+		txtMortgagePayment.setText("");
+		txtRate.setText("");
 		
 	}
 }
