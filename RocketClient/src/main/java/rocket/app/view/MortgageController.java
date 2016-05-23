@@ -40,6 +40,7 @@ public class MortgageController {
 	//		Label    -  to show error messages (exception throw, payment exception)
 	
 	private static NumberFormat cf = NumberFormat.getCurrencyInstance();
+	//TODO percent format for rate, check down payment logic
 
 	@FXML
 	private TextField txtIncome;
@@ -63,8 +64,11 @@ public class MortgageController {
 	private ComboBox cmbTerm;
 
 	@FXML
-	private JLabel lblMortgagePayment;
+	private TextField txtMortgagePayment;
 
+	@FXML
+	private TextField txtRate;
+	
 	@FXML
 	private Button btnCalcPayment;
 	
@@ -101,8 +105,7 @@ public class MortgageController {
 		//			set the loan request details...  rate, term, amount, credit score, downpayment
 		//			I've created you an instance of lq...  execute the setters in lq
 		
-		lq.setdAmount(Double.parseDouble(txtHouseCost.getText()));
-		lq.setdPayment(Double.parseDouble(txtDownPayment.getText()));
+		lq.setdAmount(Double.parseDouble(txtHouseCost.getText()) - Double.parseDouble(txtDownPayment.getText()));
 		lq.setIncome(Double.parseDouble(txtIncome.getText()));
 		lq.setExpenses(Double.parseDouble(txtExpenses.getText()));
 		lq.setiCreditScore(Integer.parseInt(txtCreditScore.getText()));
@@ -128,11 +131,14 @@ public class MortgageController {
 		//			Display dPayment on the form, rounded to two decimal places
 		
 		RateBLL _RateBLL = new RateBLL();
+		txtRate.setText(Double.toString(lRequest.getdRate()));
 		
 		if (_RateBLL.IncomeCheck(lRequest) == true) {
-			 lblMortgagePayment.setText(cf.format(lRequest.getdPayment()));
+			
+			txtMortgagePayment.setText(cf.format(lRequest.getdPayment()));
+			
 		} else {
-			lblMortgagePayment.setText("House Cost too high");
+			txtMortgagePayment.setText("House Cost too high");
 		}
 		
 	}
@@ -140,11 +146,7 @@ public class MortgageController {
 	@FXML
 	public void btnExit(ActionEvent event)
 	{
-		try {
-			mainApp.stop();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		System.exit(0);
+		
 	}
 }

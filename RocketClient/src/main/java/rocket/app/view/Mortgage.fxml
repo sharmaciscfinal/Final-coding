@@ -43,12 +43,14 @@
                         <ComboBox id="fx:term" fx:id="cmbTerm" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <Button fx:id="btnCalcPayment" mnemonicParsing="false" onAction="#btnCalculatePayment" prefHeight="35.0" prefWidth="151.0" text="Calculate Payment" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                         <Button fx:id="btnExit" mnemonicParsing="false" onAction="#btnExit" prefHeight="35.0" prefWidth="151.0" text="Exit" translateX="165.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                        <Label fx:id="lblMortgagePayment" alignment="CENTER" contentDisplay="CENTER" prefHeight="95.0" prefWidth="418.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                         <TextField fx:id="txtHouseCost" alignment="CENTER" GridPane.columnIndex="1" />
                         <TextField fx:id="txtDownPayment" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField fx:id="txtIncome" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <TextField fx:id="txtExpenses" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <TextField fx:id="txtCreditScore" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="txtMortgagePayment" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <Label text="Rate" GridPane.rowIndex="6" />
+                        <TextField fx:id="txtRate" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                      </children>
                   </GridPane>
                </children>
